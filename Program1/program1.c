@@ -1,11 +1,13 @@
 
-/*
- *
- *	CIS 452 - Program 1
- *	Jesse Roe
- *	01/17/2017
- *
-*/
+/*****************************************************************
+Program 1 - Simple system call/C libary functions demo. Displays various
+system variables and other user data obtained through various system calls
+and C library functions.
+
+@author Jese Roe
+@course CIS 452
+@version 01/17/2017
+*****************************************************************/
 
 #include <stdio.h>
 #include <unistd.h>
@@ -20,7 +22,7 @@
 int main() {
 
    /* local variables */
-   char cmd[MAXLINE];  //NEED TO MALLOC
+   char cmd[MAXLINE];
    char host_name[MAXLINE];
    char *value;
    struct passwd *pwd;
@@ -71,7 +73,7 @@ int main() {
    }
 
    /* Add some format spacing to ouput */
-   printf("\n\n");
+   printf("\n");
 
    /* Start input loop prompting user for ENV command */
    for (; ;) {
@@ -82,7 +84,7 @@ int main() {
       scanf("%s", cmd);
 
       /* if cmd is “exit”, then terminate the program */
-      if ((cmd, "exit") == 0) {
+      if (strcmp(cmd, "exit") == 0) {
          printf("Exiting...\n");
          exit(0);
       } else {
@@ -90,6 +92,8 @@ int main() {
          /* Get ENV variable based on cmd string */
          value = getenv(cmd);
 
+         printf("\n");
+         
          /* Check if cmd is valid and return appropriate output */
          if (value) {
             printf("value is: %s\n", value);
