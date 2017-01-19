@@ -14,7 +14,7 @@
 #include <string.h>
 
 /* Max input string size*/
-#define MAXLINE 80
+#define MAXLINE 255
 
 /* Start of main function */
 int main() {
@@ -82,7 +82,7 @@ int main() {
       scanf("%s", cmd);
 
       /* if cmd is “exit”, then terminate the program */
-      if (strcmp(cmd, "exit") == 0) {
+      if ((cmd, "exit") == 0) {
          printf("Exiting...\n");
          exit(0);
       } else {
