@@ -1,0 +1,21 @@
+Test Run
+
+roeje-> gcc -Wall program1.c
+[~/Documents/452/cis-452-projects/Program1]
+roeje-> ./a.out
+User is: roeje
+UID is 7786
+GID is 500
+host is: arch06.cis.gvsu.edu
+entry 0: root
+entry 1: bin
+entry 2: daemon
+entry 3: adm
+entry 4: lp
+
+Enter ENV variable (or "exit" to quit): TERM
+
+value is: xterm-256color
+
+Enter ENV variable (or "exit" to quit): exit
+Exiting...
