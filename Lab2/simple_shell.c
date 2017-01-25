@@ -2,6 +2,7 @@
 
 	CIS 452 - Lab 2: Simple Shell Example
 	Jesse Roe
+  Michael Kolarik
 	01/22/2017
 
 */
@@ -19,7 +20,7 @@
 #define MAXARG 20
 
 // Declaration of background function
-void background (char * cmd);
+void background (char *cmd);
 
 int main() {
 
@@ -46,13 +47,8 @@ int main() {
       pid = fork();
       if (pid) {
 
-         /*struct timeval {
-             time_t      tv_sec;
-             suseconds_t tv_usec;
-         }*/
-
          // Wait for child process to terminate
-         child_pid = waitpid(-1, &child_status, 0);
+         waitpid(-1, &child_status, 0);
          result = getrusage(who, &usage);
          printf("User CPU time used: %ld.%06ld\n", usage.ru_utime.tv_sec, usage.ru_utime.tv_usec);
          printf("Number of involuntary context switches: %li\n", usage.ru_nivcsw);
@@ -62,7 +58,6 @@ int main() {
          exit(-1);
       } else {
          background(cmd);
-
          exit(0);
       }
    }
