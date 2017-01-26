@@ -1,0 +1,15 @@
+roeje-> ./a.out
+mysh$ ls -la
+total 40
+drwx--x--x 2 roeje users 4096 Jan 26 14:36 .
+drwx--x--x 7 roeje users 4096 Jan 26 14:13 ..
+-rwxr-xr-x 1 roeje users 9064 Jan 26 14:36 a.out
+-rw------- 1 roeje users  177 Jan 19 15:22 sample1.c
+-rw------- 1 roeje users  415 Jan 19 15:39 sample2.c
+-rw------- 1 roeje users  567 Jan 19 16:25 sample3.c
+-rw------- 1 roeje users  388 Jan 19 16:31 sample4.c
+-rw-r--r-- 1 roeje users 3024 Jan 26 14:36 simple_shell.c
+User CPU time used: 0.000000
+Number of involuntary context switches: 19
+mysh$ quit
+Exiting...

@@ -31,7 +31,7 @@ int main() {
    /**
     * Store success of getrusage() and status of wait()
     */
-   int child_status, result;
+   int child_status;
 
    /**
     * Command argument string to hold value of fgets()
@@ -43,6 +43,9 @@ int main() {
     */
    struct rusage usage;
    int who = RUSAGE_CHILDREN;
+   long int time_sec = 0;
+   long int time_msec = 0;
+   long icw = 0;
 
    for (; ;) {
 
@@ -60,17 +63,31 @@ int main() {
 
       // otherwise, create a child process to handle that command.
       pid = fork();
+
+      // if in parent process
       if (pid) {
 
          // Wait for child process to terminate
          waitpid(-1, &child_status, 0);
-         result = getrusage(who, &usage);
-         printf("User CPU time used: %ld.%06ld\n", usage.ru_utime.tv_sec, usage.ru_utime.tv_usec);
-         printf("Number of involuntary context switches: %li\n", usage.ru_nivcsw);
+         getrusage(who, &usage);
 
+         // Calculate time for each unique process and output to user
+         long int tmp_time_sec = usage.ru_utime.tv_sec - time_sec;
+         long int tmp_time_msec = usage.ru_utime.tv_usec - time_msec;
+         time_sec = usage.ru_utime.tv_sec;
+         time_msec = usage.ru_utime.tv_usec;
+         printf("User CPU time used: %ld.%06ld\n", tmp_time_sec, tmp_time_msec);
+
+         long tmp_icw = usage.ru_nivcsw - icw;
+         icw = usage.ru_nivcsw;
+         printf("Number of involuntary context switches: %li\n", tmp_icw);
+
+      // if error spawing child
       } else if (pid < 0) {
          printf("An error occured spawning a child process. Exiting.\n");
          exit(-1);
+
+      // if child
       } else {
          background(cmd);
          exit(0);
