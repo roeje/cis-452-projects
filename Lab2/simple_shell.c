@@ -1,11 +1,3 @@
-/*
-
-	CIS 452 - Lab 2: Simple Shell Example
-	Jesse Roe
-  Michael Kolarik
-	01/22/2017
-
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,25 +11,48 @@
 #define MAXLINE 80
 #define MAXARG 20
 
+/**
+ * CIS 452 - Lab 2: Simple Shell Example
+ * @author  Jesse Roe
+ * @author  Michael Kolarik
+ * @version 01/22/2016
+ */
+
 // Declaration of background function
 void background (char *cmd);
 
 int main() {
 
-   pid_t child_pid, pid;
+   /**
+    * pid_t var to store output of fork
+    */
+   pid_t pid;
+
+   /**
+    * Store success of getrusage() and status of wait()
+    */
    int child_status, result;
+
+   /**
+    * Command argument string to hold value of fgets()
+    */
    char cmd[MAXLINE];
+
+   /**
+    * Holds results from getrusage()
+    */
    struct rusage usage;
    int who = RUSAGE_CHILDREN;
-   // printf("mysh$ ");
+
    for (; ;) {
 
+      // print terminal prompt
       printf("mysh$ ");
 
       // read a command from the user
       fgets(cmd, MAXLINE, stdin);
 
-      // if the command in cmd is “exit\n”, then terminate this program;
+      // if the command in cmd is “exit\n”, terminate program;
       if (strcmp(cmd,"quit\n") == 0) {
          printf("Exiting...\n");
          exit(0);
@@ -64,13 +79,25 @@ int main() {
 	return 0;
 }
 
+/**
+ * Run by chlid process to execute command
+ * <p>
+ * Builds vector of commands and passes into execvp()
+ *
+ * @param  command string from user
+ * @return none
+ */
 void background (char *cmd) {
 
+   // Interator and char pointer/string for use in strtok()
    int i = 0;
    char *tmp;
    char *argv[MAXARG];
 
+   // read in fisrt element of command array
    tmp = strtok(cmd, "\t \n");
+
+   // interate over rest of array and store results in argument array
    while(tmp != NULL) {
       argv[i] = tmp;
       tmp = strtok(NULL, "\t \n");
