@@ -10,7 +10,7 @@
 #include <signal.h>
 
 /**
- * CIS 452 - Lab 2: Simple Shell Example
+ * CIS 452 - Lab 3: Communicating Process
  * @author  Jesse Roe
  * @author  Michael Kolarik
  * @version 01/22/2016
@@ -70,21 +70,19 @@ int main() {
          }
       }
    }
-
    return 0;
 }
 
 void sigHandler (int sigNum) {
     printf (" received an interrupt.\n");
-
-   //  printf ("outta here.\n");
-
+    if (sigNum == SIGUSR1) {
+        printf ("received a SIGUSR1 signal.\n");
+    } else {
+        printf ("received a SIGUSR2 signal.\n");
+    }
 }
 
 void exitHandler (int sigNum) {
     printf (" Exiting...\n");
-
-   //  printf ("outta here.\n");
-   exit(0);
-
+    exit(0);
 }
