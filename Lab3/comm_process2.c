@@ -68,7 +68,7 @@ int main() {
          printf("spawned child PID# %d\n", getpid());
 
          for(; ;) {
-            fprintf(stderr, "waiting...   ");
+            // fprintf(stderr, "waiting...   ");
             int wait_time = (rand()%5) + 1;
             sleep(wait_time);
 
@@ -89,29 +89,24 @@ int main() {
 
    // if in parent process
 
-   signal (SIGINT, exitHandler);
+   // signal (SIGINT, exitHandler);
 
    // Wait for child process to terminate
    // printf("waiting...   ");
    // fflush(stdout);
    waitpid(-1, &status, 0);
    return 0;
-
 }
 
 void sigHandler (int sigNum, siginfo_t *siginfo, void *context) {
     // printf (" received an interrupt.\n");
    if (sigNum == SIGUSR1) {
-      printf ("received a SIGUSR1 signal.\n");
+      printf ("received a SIGUSR1 signal from PID: %ld\n", (long)siginfo->si_pid);
 
-      // signal (SIGUSR1, sigHandler);
-      // signal (SIGINT, exitHandler);
    }
    if (sigNum == SIGUSR2) {
-      printf ("received a SIGUSR2 signal.\n");
+      printf ("received a SIGUSR2 signalfrom PID: %ld\n", (long)siginfo->si_pid);
 
-      // signal (SIGUSR2, sigHandler);
-      // signal (SIGINT, exitHandler);
    }
 }
 
