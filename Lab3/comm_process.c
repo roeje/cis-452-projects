@@ -16,15 +16,14 @@
  * @version 01/22/2016
  */
 
+
 void sigHandler(int);
 void exitHandler(int);
 
 int main() {
 
    srand(time(NULL));
-   signal (SIGUSR1, sigHandler);
-   signal (SIGUSR2, sigHandler);
-   signal (SIGINT, exitHandler);
+
 
 
    /**
@@ -40,13 +39,17 @@ int main() {
    // otherwise, create a child process to handle that command.
    pid = fork();
 
+
    // if in parent process
    if (pid) {
+      signal (SIGUSR1, sigHandler);
+      signal (SIGUSR2, sigHandler);
+      signal (SIGINT, exitHandler);
 
       // Wait for child process to terminate
       // waitpid(-1, &child_status, 0);
       printf ("waiting...\n");
-
+      // pause();
       waitpid(-1, &status, 0);
 
    // if error spawing child
@@ -60,7 +63,7 @@ int main() {
          int wait_time = (rand()%5) + 1;
          sleep(wait_time);
 
-         int user_sig = rand()%1;
+         int user_sig = rand()%2;
 
          if (user_sig) {
             kill(pid, SIGUSR1);
@@ -74,13 +77,18 @@ int main() {
 }
 
 void sigHandler (int sigNum) {
-    printf (" received an interrupt.\n");
+    // printf (" received an interrupt.\n");
     if (sigNum == SIGUSR1) {
-        printf ("received a SIGUSR1 signal.\n");
+        fprintf (stdout, "received a SIGUSR1 signal.\n");
+        fflush(stdout);
+        signal (SIGUSR1, sigHandler);
     } else {
-        printf ("received a SIGUSR2 signal.\n");
+        fprintf (stdout, "received a SIGUSR2 signal.\n");
+        fflush(stdout);
+        signal (SIGUSR2, sigHandler);
     }
 }
+
 
 void exitHandler (int sigNum) {
     printf (" Exiting...\n");
