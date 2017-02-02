@@ -23,9 +23,9 @@ void exitHandler(int);
 int main() {
 
    srand(time(NULL));
-   signal (SIGUSR1, sigHandler);
-   signal (SIGUSR2, sigHandler);
-   signal (SIGINT, exitHandler);
+   // signal (SIGUSR1, sigHandler);
+   // signal (SIGUSR2, sigHandler);
+   // signal (SIGINT, exitHandler);
 
    /**
     * pid_t var to store output of fork
@@ -41,6 +41,10 @@ int main() {
    parent_pid = getpid();
    pid = fork();
 
+   signal (SIGUSR1, sigHandler);
+   signal (SIGUSR2, sigHandler);
+   signal (SIGINT, exitHandler);
+
 
    // if in parent process
    if (pid) {
@@ -49,9 +53,8 @@ int main() {
       // Wait for child process to terminate
       // waitpid(-1, &child_status, 0);
 
-      pause();
-      // waitpid(-1, &status, 0);
-      return 0;
+
+      waitpid(-1, &status, 0);
 
    // if error spawing child
    } else if (pid < 0) {
@@ -60,10 +63,11 @@ int main() {
 
    // if child
    } else {
-      fprintf(stderr, "spawned child PID# %d\n", getpid());
+      fprintf(stdout, "spawned child PID# %d\n", getpid());
       for(; ;) {
-         fprintf(stdout, "waiting...   ");
-         fflush(stdout);
+         // fprintf(stdout, "waiting...   ");
+         // fflush(stdout);
+         //
 
          int wait_time = (rand()%5) + 1;
          sleep(wait_time);
@@ -85,13 +89,15 @@ void sigHandler (int sigNum) {
     // printf (" received an interrupt.\n");
    if (sigNum == SIGUSR1) {
       fprintf (stdout, "received a SIGUSR1 signal.\n");
-      fflush(stdout);
-      signal (SIGUSR1, sigHandler);
+      // fflush(stdout);
+      // signal (SIGUSR1, sigHandler);
+      // signal (SIGINT, exitHandler);
    }
    if (sigNum == SIGUSR2) {
       fprintf (stdout, "received a SIGUSR2 signal.\n");
-      fflush(stdout);
-      signal (SIGUSR2, sigHandler);
+      // fflush(stdout);
+      // signal (SIGUSR2, sigHandler);
+      // signal (SIGINT, exitHandler);
    }
 }
 
