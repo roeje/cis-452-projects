@@ -60,6 +60,7 @@ int main() {
 
    // if child
    } else {
+      fprintf(stderr, "spawned child PID# %d\n", getpid());
       for(; ;) {
          fprintf(stdout, "waiting...   ");
          fflush(stdout);
