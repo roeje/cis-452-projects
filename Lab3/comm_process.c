@@ -23,9 +23,9 @@ void exitHandler(int);
 int main() {
 
    srand(time(NULL));
-   // signal (SIGUSR1, sigHandler);
-   // signal (SIGUSR2, sigHandler);
-   // signal (SIGINT, exitHandler);
+   signal (SIGUSR1, sigHandler);
+   signal (SIGUSR2, sigHandler);
+
 
    /**
     * pid_t var to store output of fork
@@ -39,22 +39,23 @@ int main() {
 
    // otherwise, create a child process to handle that command.
    parent_pid = getpid();
+
    pid = fork();
 
-   signal (SIGUSR1, sigHandler);
-   signal (SIGUSR2, sigHandler);
-   signal (SIGINT, exitHandler);
+  //  signal (SIGUSR1, sigHandler);
+  //  signal (SIGUSR2, sigHandler);
+  //  signal (SIGINT, exitHandler);
 
 
    // if in parent process
    if (pid) {
-
+     signal (SIGINT, exitHandler);
 
       // Wait for child process to terminate
-      // waitpid(-1, &child_status, 0);
-
-
+      // printf("waiting...   ");
+      // fflush(stdout);
       waitpid(-1, &status, 0);
+      return 0;
 
    // if error spawing child
    } else if (pid < 0) {
@@ -63,12 +64,10 @@ int main() {
 
    // if child
    } else {
-      fprintf(stdout, "spawned child PID# %d\n", getpid());
-      for(; ;) {
-         // fprintf(stdout, "waiting...   ");
-         // fflush(stdout);
-         //
+      printf("spawned child PID# %d\n", getpid());
 
+      for(; ;) {
+         fprintf(stderr, "waiting...   ");
          int wait_time = (rand()%5) + 1;
          sleep(wait_time);
 
@@ -80,6 +79,8 @@ int main() {
          }else {
             kill(parent_pid, SIGUSR2);
          }
+        //  fprintf(stderr, "waiting...   ");
+        //  fflush(stdout);
       }
    }
    return 0;
@@ -88,14 +89,14 @@ int main() {
 void sigHandler (int sigNum) {
     // printf (" received an interrupt.\n");
    if (sigNum == SIGUSR1) {
-      fprintf (stdout, "received a SIGUSR1 signal.\n");
-      // fflush(stdout);
+      printf ("received a SIGUSR1 signal.\n");
+
       // signal (SIGUSR1, sigHandler);
       // signal (SIGINT, exitHandler);
    }
    if (sigNum == SIGUSR2) {
-      fprintf (stdout, "received a SIGUSR2 signal.\n");
-      // fflush(stdout);
+      printf ("received a SIGUSR2 signal.\n");
+
       // signal (SIGUSR2, sigHandler);
       // signal (SIGINT, exitHandler);
    }
@@ -103,6 +104,6 @@ void sigHandler (int sigNum) {
 
 
 void exitHandler (int sigNum) {
-    printf (" Exiting...\n");
+    printf(" received.  That's it, I'm shutting you down...\n");
     exit(0);
 }
