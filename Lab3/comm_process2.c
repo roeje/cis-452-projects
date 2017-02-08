@@ -81,6 +81,9 @@ int main() {
                kill(parent_pid, SIGUSR2);
             }
 
+            // sigaction(SIGUSR1, &sig1, NULL);
+            // sigaction(SIGUSR2, &sig2, NULL);
+
          }
          return 0;
       }
