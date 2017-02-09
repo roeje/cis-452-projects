@@ -80,7 +80,7 @@ int main() {
          printf("spawned child PID# %d\n", getpid());
 
          for(; ;) {
-            fprintf(stderr, "waiting...   ");
+            // fprintf(stderr, "waiting...   ");
             int wait_time = (rand()%5) + 1;
             sleep(wait_time);
 
@@ -93,13 +93,12 @@ int main() {
             } else {
                printf("Killing2...\n");
                kill(parent_pid, SIGUSR2);
-            }          
+            }
 
          }
          return 0;
       }
    }
-
    // Wait for child process to terminate
    //  waitpid(-1, &status, 0);
    pause();
@@ -124,10 +123,12 @@ int main() {
 
 void sigHandler (int sigNum) {
    if (sigNum == SIGUSR1) {
-      printf ("received a SIGUSR1 signal from PID:\n");
+      printf ("received a SIGUSR1 signal from PID: %ld\n", (long)siginfo->si_pid);
+
    }
    if (sigNum == SIGUSR2) {
-      printf ("received a SIGUSR2 signalfrom PID: \n");
+      printf ("received a SIGUSR2 signalfrom PID: %ld\n", (long)siginfo->si_pid);
+
    }
 }
 
