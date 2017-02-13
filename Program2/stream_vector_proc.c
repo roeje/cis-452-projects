@@ -18,7 +18,7 @@
 
 
 void pause_handler(int sigNum);
-void exitHandler(int sigNum);
+void exit_handler(int sigNum);
 
 int main() {
 
@@ -40,9 +40,6 @@ int main() {
     * Store success of getrusage() and status of wait()
     */
    int status;
-
-
-
 
 
    int i;
@@ -87,7 +84,7 @@ void pause_handler (int sigNum) {
 }
 
 
-void exitHandler (int sigNum) {
+void exit_handler (int sigNum) {
     printf(" received.  That's it, I'm shutting you down...\n");
     exit(0);
 }
