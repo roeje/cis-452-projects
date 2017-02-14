@@ -17,50 +17,47 @@
  */
 
 
-void sigHandler(int sigNum, siginfo_t *siginfo, void *context);
+void pause_handler(int sigNum);
 void exitHandler(int sigNum);
 
 int main() {
 
-   
+
 
    srand(time(NULL));
-  
-   
 
-   signal (SIGUSR1, sigHandler);
-   signal (SIGUSR2, sigHandler);
+
+
+   signal (SIGINT, pause_handler);
+   // signal (SIGUSR2, sigHandler);
 
    /**
     * pid_t var to store output of fork
     */
-   pid_t pid, parent_pid;
+   pid_t pid;
 
    /**
     * Store success of getrusage() and status of wait()
     */
    int status;
 
-   // otherwise, create a child process to handle that command.
-   parent_pid = getpid();
 
-   // pid = fork();
 
-  //  signal (SIGUSR1, sigHandler);
-  //  signal (SIGUSR2, sigHandler);
-  //  signal (SIGINT, exitHandler);
+
 
    int i;
    for (i = 0; i < 3; i++) {
       if ((pid = fork()) < 0) {
+
          printf("An error occured spawning a child process. Exiting.\n");
          exit(-1);
 
       } else if (pid == 0) {
          printf("spawned child PID# %d\n", getpid());
-         
+         printf("interator = %d\n", x);
+
          // call function for this process
-         
+
          exit(0);
       }
    }
@@ -77,14 +74,14 @@ int main() {
    return 0;
 }
 
-void sigHandler (int sigNum, siginfo_t *siginfo, void *context) {
+void pause_handler (int sigNum) {
     // printf (" received an interrupt.\n");
    if (sigNum == SIGUSR1) {
-      printf ("received a SIGUSR1 signal from PID: %ld\n", (long)siginfo->si_pid);
+      printf ("received a SIGUSR1 signal\n");
 
    }
    if (sigNum == SIGUSR2) {
-      printf ("received a SIGUSR2 signalfrom PID: %ld\n", (long)siginfo->si_pid);
+      printf ("received a SIGUSR2 signal\n");
 
    }
 }
