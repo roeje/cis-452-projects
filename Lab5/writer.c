@@ -49,22 +49,22 @@ int main() {
 
    if ((string_mem_id = shmget(mem_key, MEMSIZE, IPC_CREAT | 0666)) < 0) {
       perror ("Could not create string mem\n");
-      exit (1);
+      exit(1);
    }
 
    if ((flag_mem_id = shmget (flag_key, MEMSIZE, IPC_CREAT | 0666)) < 0) {
       perror ("Could not create flag mem\n");
-      exit (1);
+      exit(1);
    }
 
    if ((string_mem = shmat (string_mem_id, 0, 0)) == (void*) -1) {
       perror ("can't attach\n");
-      exit (1);
+      exit(1);
    }
 
    if ((flag_mem = shmat (flag_mem_id, 0, 0)) == (void*) -1) {
       perror ("can't attach\n");
-      exit (1);
+      exit(1);
    }
 
    while(1) {
