@@ -74,8 +74,11 @@ int main() {
       // read a command from the user
       fgets(cmd, MAXLINE, stdin);
       cmd[strcspn(cmd, "\n")] = 0;
+      while (*flag_mem != 0) {
+          ;
+      }
       strcpy(string_mem, cmd);
-      *flag_mem = 0;
+      *flag_mem = 1;
       printf("String is: %s\n", string_mem);
       printf("Flag is: %d\n", *flag_mem);
    }
