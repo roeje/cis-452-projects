@@ -14,6 +14,7 @@
  * @author  Jesse Roe *
  * @version 02/10/2017
  */
+
  #define READ 0
  #define WRITE 1
  #define MAX 1024
@@ -23,25 +24,43 @@ int initial_pause = 1;
 void pause_handler(int sigNum);
 void exit_handler(int sigNum);
 
-int main() {
+void complement_processor(char *num);
+void increment_processor(char *num);
+void add_processor(char *num);
+
+int main(int argc, char *argv) {
 
    signal (SIGINT, pause_handler);
+
+   // Verify command line parameters
+   if (argc != 4) {
+      fprintf(stdout, "3 arguments must be provided... Please try again.\n");
+      fprintf(stdout, "Usage: input_file_A, input_file_B, binary_number_length\n");
+      exit(1);
+   }
+
+   if (!isNumber(argv[3])) {
+      fprintf(stdout, "The 3rd argument must be a integer (ie. 8, 10, 16)... Please try again.\n");
+      exit(1);
+   }
 
    /**
     * pid_t var to store output of fork
     */
    pid_t pid;
+
+   // Setup Pipes
    int pipe_one[2];
    int pipe_two[2];
 
-   ssize_t num;
-   char cmd[MAX];
 
-   // TEMP SET FILE SIZES and FILE NAMES
-   int binary_length = 8;
+   // int binary_length = 8;
+   int binary_length = atoi(argv[3]);
 
-   char fileA[] = "8-input_A.dat";
-   char fileB[] = "8-input_B.dat";
+   // char fileA[] = "8-input_A.dat";
+    char *fileA = argv[1];
+   // char fileB[] = "8-input_B.dat";
+    char *fileB = argv[2];
 
    /**
     * Store status of wait()
@@ -69,6 +88,7 @@ int main() {
          printf("interator = %d\n", i);
 
          if (i == 0) {
+            
             // Spawn Increment Process
 
             char pipe_buffer[binary_length + 1];
@@ -76,25 +96,25 @@ int main() {
             close(pipe_one[WRITE]);
             close(pipe_two[READ]);
 
-            // read = fdopen(pipe_one[READ], "r");
-            // write = fdopen(pipe_two[WRITE], "w");
-
             while(1) {
-               // fread(pipe_buffer, sizeof(pipe_buffer) + 1, 1, read);
-               read(pipe_one[READ], pipe_buffer, sizeof(pipe_buffer) + 1);
+
+               int success = read(pipe_one[READ], pipe_buffer, sizeof(pipe_buffer) + 1);
+
+               if (success == 0) {
+                 break;
+               }
 
                fprintf(stdout, "Incrementer: Read binary string from PIPE: %s\n", pipe_buffer);
                fflush(stdout);
 
                char *binary_output = pipe_buffer;
 
-               // fwrite(pipe_buffer, sizeof(pipe_buffer) + 1, 1, write);
                write(pipe_two[WRITE], pipe_buffer, sizeof(pipe_buffer) + 1);
-               // fflush(pipe_two[WRITE]);
             }
 
 
          } else {
+
             // Spawn Adder Process
             FILE *input_file, *output_file;
 
@@ -105,14 +125,12 @@ int main() {
             close(pipe_one[READ]);
             close(pipe_two[WRITE]);
 
-            // read = fdopen(pipe_two[READ], "r");
             input_file = fopen(fileB, "r");
             output_file = fopen("output.dat", "w");
 
             while(1) {
-               // fread(pipe_buffer, sizeof(pipe_buffer) + 1, 1, read);
+
                read(pipe_two[READ], pipe_buffer, sizeof(pipe_buffer) + 1);
-               // read(pipe_read ,pipe_buffer, binary_length);
 
                if (fgets(input_file_buffer, binary_length + 3, input_file) == NULL) {
                   break;
@@ -126,10 +144,7 @@ int main() {
                fflush(stdout);
 
                char *binary_output = pipe_buffer;
-               // fwrite(pipe_buffer, sizeof(pipe_buffer) + 1, 1, output_file);
                fprintf(output_file, "%s\n", pipe_buffer);
-
-
             }
          }
 
@@ -148,12 +163,12 @@ int main() {
    close(pipe_two[WRITE]);
 
    input_file = fopen(fileA, "r");
-   // write = fdopen(pipe_one[WRITE], "w");
 
    fprintf(stdout, "Waiting for Ctrl^C confirmation...\n");
    while (initial_pause) {
       ;
    }
+
    // signal (SIGINT, exit_handler);
 
    while(fgets(file_buffer, binary_length + 3, input_file) != NULL) {
@@ -166,9 +181,8 @@ int main() {
 
       char *binary_output = file_buffer;
 
-      // fwrite(file_buffer, , 1, write);
       write(pipe_one[WRITE], file_buffer, sizeof(file_buffer) + 1);
-      // fflush(pipe_one[WRITE]);
+
    }
 
    signal (SIGINT, exit_handler);
@@ -176,7 +190,17 @@ int main() {
    return 0;
 }
 
+void complement_processor(char *num) {
 
+}
+
+void increment_processor(char *num) {
+
+}
+
+void add_processor(char *num){
+
+}
 
 void pause_handler (int sigNum) {
     // printf (" received an interrupt.\n");
