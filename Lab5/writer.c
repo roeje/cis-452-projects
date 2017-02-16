@@ -31,17 +31,9 @@ int main() {
 
    signal (SIGINT, exit_handler);
 
+   key_t mem_key = 6666;
+   key_t flag_key = 7777;
 
-   /**
-    * pid_t var to store output of fork
-    */
-   pid_t pid, parent_pid;
-
-
-   key_t mem_key;
-   mem_key = 6666;
-   key_t flag_key;
-   flag_key = 7777;
    char cmd[MAXLINE];
 
    char *string_mem;
@@ -69,16 +61,19 @@ int main() {
 
    while(1) {
 
-      fprintf(stdout, "Enter Text: \n");
+      fprintf(stdout, "Enter Text: ");
 
       // read a command from the user
       fgets(cmd, MAXLINE, stdin);
       cmd[strcspn(cmd, "\n")] = 0;
-      while (*flag_mem != 0) {
+
+      while (flag_mem[0] != 0 && flag_mem[1] != 0) {
           ;
       }
+
       strcpy(string_mem, cmd);
-      *flag_mem = 1;
+      flag_mem[0] = 1;
+      flag_mem[1] = 1;
       printf("String is: %s\n", string_mem);
       printf("Flag is: %d\n", *flag_mem);
    }
@@ -92,11 +87,6 @@ int main() {
       perror ("just can't let go\n");
       exit (1);
    }
-
-   // printf ("value a: %lu\t value b: %lu\n", (unsigned long) shmPtr, (unsigned long) shmPtr + FOO);
-
-
-
 
    return 0;
 }
