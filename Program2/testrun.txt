@@ -1,0 +1,47 @@
+roeje-> ./a.out 8-input_A.dat 8-input_B.dat 8
+FileA is: 8-input_A.dat
+FileB is: 8-input_B.dat
+Binary number length: 8
+Spawned child PID# 25895
+Interator = 0
+Spawned child PID# 25896
+Interator = 1
+Waiting for Ctrl^C confirmation...
+^C Starting Processsing...
+ Starting Processsing...
+ Starting Processsing...
+Complementer: Read binary string from FileB: 00100100     Complementer: Write binary string to PIPE: 11011011
+Complementer: Read binary string from FileB: 00101100     Complementer: Write binary string to PIPE: 11010011
+Complementer: Read binary string from FileB: 11101101     Complementer: Write binary string to PIPE: 00010010
+Incrementer: Read binary string from PIPE: 11011011	Incrementer: Wrote binary string to PIPE: 11011100
+Complementer: Read binary string from FileB: 11110110     Complementer: Write binary string to PIPE: 00001001
+Complementer: Read binary string from FileB: 00001101     Complementer: Write binary string to PIPE: 11110010
+Complementer: Read binary string from FileB: 00100000     Complementer: Write binary string to PIPE: 11011111
+Complementer: Read binary string from FileB: 11011000     Complementer: Write binary string to PIPE: 00100111
+Incrementer: Read binary string from PIPE: 11010011	Incrementer: Wrote binary string to PIPE: 11010100
+Complementer: Read binary string from FileB: 11101010     Complementer: Write binary string to PIPE: 00010101
+Incrementer: Read binary string from PIPE: 00010010	Incrementer: Wrote binary string to PIPE: 00010011
+Incrementer: Read binary string from PIPE: 00001001	Incrementer: Wrote binary string to PIPE: 00001010
+Incrementer: Read binary string from PIPE: 11110010	Incrementer: Wrote binary string to PIPE: 11110011
+Incrementer: Read binary string from PIPE: 11011111	Incrementer: Wrote binary string to PIPE: 11100000
+Incrementer: Read binary string from PIPE: 00100111	Incrementer: Wrote binary string to PIPE: 00101000
+Adder: Read binary string from Pipe: 11011100	Adder: Read binary string from FileB: 01100100	Adder: Write binary string to Output: 01000000
+Incrementer: Read binary string from PIPE: 00010101	Incrementer: Wrote binary string to PIPE: 00010110
+Adder: Read binary string from Pipe: 11010100	Adder: Read binary string from FileB: 01000010	Adder: Write binary string to Output: 00010110
+Adder: Read binary string from Pipe: 00010011	Adder: Read binary string from FileB: 00101101	Adder: Write binary string to Output: 01000000
+Adder: Read binary string from Pipe: 00001010	Adder: Read binary string from FileB: 00001010	Adder: Write binary string to Output: 00010100
+Adder: Read binary string from Pipe: 11110011	Adder: Read binary string from FileB: 11001110	Adder: Write binary string to Output: 11000001
+Adder: Read binary string from Pipe: 11100000	Adder: Read binary string from FileB: 11100000	Adder: Write binary string to Output: 11000000
+Adder: Read binary string from Pipe: 00101000	Adder: Read binary string from FileB: 11000000	Adder: Write binary string to Output: 11101000
+Adder: Read binary string from Pipe: 00010110	Adder: Read binary string from FileB: 11101110	Adder: Write binary string to Output: 00000100
+[~/Documents/452/cis-452-projects/Program2]
+roeje-> cat output.dat
+01000000
+00010110
+01000000
+00010100
+11000001
+11000000
+11101000
+00000100
+[~/Documents/452/cis-452-projects/Program2]

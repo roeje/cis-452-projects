@@ -12,6 +12,10 @@
 
 /**
  * CIS 452 - Project 2: Streamed Vector Processing
+ * Implementation of a basic multi process binary subtractor.
+ * Binary strings are read from input files and individually processed by
+ * unique processes. Pipes are utilized to communicate between processes.
+ *
  * @author  Jesse Roe
  * @version 02/10/2017
  */
@@ -297,10 +301,14 @@ void add_processor(char *number_one, char *number_two, int binary_len){
    int i;
    for (i = binary_len; i >= 0; i--) {
 
+      // Convert each binary character to an int
       int digit_one = number_one[i] - '0';
       int digit_two = number_two[i] - '0';
+
+      // Create runningn sum of digits
       int tmp_total = carry + digit_one + digit_two;
 
+      // Based on the sum, the result is saved and the carry is saved
       if (tmp_total == 0 ) {
          carry = 0;
       } else if (tmp_total == 1) {
@@ -327,6 +335,13 @@ void pause_handler (int sigNum) {
    fprintf (stdout, " Starting Processsing...\n");
 }
 
+/**
+ * Signal handler to handle basic ctrl^c
+ * <p>
+ *
+ * @param  int sigNum - signal value
+ * @return none
+ */
 void exit_handler (int sigNum) {
    printf(" received.  Shutting down...\n");
    exit(0);
