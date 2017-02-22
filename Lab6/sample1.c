@@ -6,15 +6,31 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
+#include <sys/sem.h>
 
 #define SIZE 16
 
 int main (int argc, char **argv)
 {
    int status;
+   struct sembuf sbuf;
    long int i, loop, temp, *shmPtr;
    int shmId;
    pid_t pid;
+   int semId;
+   int sem_op_result;
+
+   semId = semget(IPC_PRIVATE, 1, 00600);
+   if (semId == -1) {
+      printf("Error initilizing semaphore\n");
+      exit(0);
+   }
+   semctl(semId, 0, SETVAL, 1);
+
+   sbuf.sem_num = 0;
+   sbuf.sem_op = 1;
+   sbuf.sem_flg = 0;
+
 
    loop = atoi(argv[1]);    // get value of loop variable (from command-line argument)
 
@@ -31,10 +47,18 @@ int main (int argc, char **argv)
    shmPtr[1] = 1;
 
    if (!(pid = fork())) {
+
+
+
       for (i=0; i<loop; i++) {
-               temp = shmPtr[1]; // swap the contents of shmPtr[0] and shmPtr[1]
-               shmPtr[1] = shmPtr[0];
-               shmPtr[0] = temp;
+
+         semop(semId, &sbuf, 1);
+         temp = shmPtr[1]; // swap the contents of shmPtr[0] and shmPtr[1]
+         shmPtr[1] = shmPtr[0];
+         shmPtr[0] = temp;
+         sbuf.sem_op = -1;
+         semop(semId, &sbuf, 1);
+
       }
       if (shmdt (shmPtr) < 0) {
          perror ("just can't let go\n");
@@ -42,15 +66,22 @@ int main (int argc, char **argv)
       }
       exit(0);
    }
-   else
-      for (i=0; i<loop; i++) {
-               // swap the contents of shmPtr[1] and shmPtr[0]
-               temp = shmPtr[0];
-               shmPtr[0] = shmPtr[1];
-               shmPtr[1] = temp;
-      }
+   else {
+         for (i=0; i<loop; i++) {
+            semop(semId, &sbuf, 1);
+            // swap the contents of shmPtr[1] and shmPtr[0]
+            temp = shmPtr[0];
+            shmPtr[0] = shmPtr[1];
+            shmPtr[1] = temp;
+
+            sbuf.sem_op = -1;
+            semop(semId, &sbuf, 1);
+         }
+   }
 
    wait (&status);
+
+   semctl(semId, 0, IPC_RMID);
    printf ("values: %li\t%li\n", shmPtr[0], shmPtr[1]);
 
    if (shmdt (shmPtr) < 0) {
