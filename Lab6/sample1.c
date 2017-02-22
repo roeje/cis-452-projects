@@ -51,12 +51,12 @@ int main (int argc, char **argv)
 
 
       for (i=0; i<loop; i++) {
-
+         sbuf.sem_op = -1;
          semop(semId, &sbuf, 1);
          temp = shmPtr[1]; // swap the contents of shmPtr[0] and shmPtr[1]
          shmPtr[1] = shmPtr[0];
          shmPtr[0] = temp;
-         sbuf.sem_op = -1;
+         sbuf.sem_op = 1;
          semop(semId, &sbuf, 1);
 
       }
@@ -68,13 +68,14 @@ int main (int argc, char **argv)
    }
    else {
          for (i=0; i<loop; i++) {
+            sbuf.sem_op = -1;
             semop(semId, &sbuf, 1);
             // swap the contents of shmPtr[1] and shmPtr[0]
             temp = shmPtr[0];
             shmPtr[0] = shmPtr[1];
             shmPtr[1] = temp;
 
-            sbuf.sem_op = -1;
+            sbuf.sem_op = 1;
             semop(semId, &sbuf, 1);
          }
    }
