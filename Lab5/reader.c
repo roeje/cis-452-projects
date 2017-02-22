@@ -27,22 +27,20 @@ void exit_handler(int);
 int string_mem_id;
 int flag_mem_id;
 
-int main() {
+int main(int argc, char **argv) {
 
    signal (SIGINT, exit_handler);
 
+   if (argc != 2) {
+      fprintf(stdout, "Need to enter reader id, try again.\n");
+      exit(0);
+   }
 
-   /**
-    * pid_t var to store output of fork
-    */
-   pid_t pid, parent_pid;
+   int uid = atoi(argv[1]);
 
 
-   key_t mem_key;
-   mem_key = 6666;
-   key_t flag_key;
-   flag_key = 7777;
-   char cmd[MAXLINE];
+   key_t mem_key = 6666;
+   key_t flag_key = 7777;
 
    char *string_mem;
    int *flag_mem;
@@ -68,12 +66,12 @@ int main() {
    }
 
    while(1) {
-      while (*flag_mem != 1) {
+      while (flag_mem[uid] == 0) {
           ;
       }
       printf("String is: %s\n", string_mem);
       printf("Flag is: %d\n", *flag_mem);
-      *flag_mem = 0;
+      flag_mem[uid] = 0;
    }
 
    if (shmdt (string_mem) < 0) {
@@ -84,6 +82,16 @@ int main() {
    if (shmdt (flag_mem) < 0) {
       perror ("just can't let go\n");
       exit (1);
+   }
+
+   if (shmctl (string_mem_id, IPC_RMID, 0) < 0) {
+      perror ("can't deallocate\n");
+      exit(1);
+   }
+
+   if (shmctl (flag_mem_id, IPC_RMID, 0) < 0) {
+      perror ("can't deallocate\n");
+      exit(1);
    }
 
    return 0;
