@@ -10,6 +10,14 @@
 
 #define SIZE 16
 
+/**
+ * CIS 452 - Lab 6: Controlled Processe Synchronization
+ *
+ * @author  Jesse Roe
+ * @author  Michael Kolarik
+ * @version 02/18/2017
+ */
+
 int main (int argc, char **argv)
 {
    int status;
@@ -18,7 +26,7 @@ int main (int argc, char **argv)
    int shmId;
    pid_t pid;
    int semId;
-   int sem_op_result;
+   // int sem_op_result;
 
    semId = semget(IPC_PRIVATE, 1, 00600);
    if (semId == -1) {
@@ -31,10 +39,9 @@ int main (int argc, char **argv)
    sbuf.sem_op = 1;
    sbuf.sem_flg = 0;
 
-
    loop = atoi(argv[1]);    // get value of loop variable (from command-line argument)
 
-   if ((shmId = shmget (IPC_PRIVATE, SIZE, IPC_CREAT|S_IRUSR|S_IWUSR)) < 0) {
+   if ((shmId = shmget (IPC_PRIVATE, SIZE, IPC_CREAT | S_IRUSR | S_IWUSR)) < 0) {
       perror ("i can't get no..\n");
       exit (1);
    }
@@ -48,8 +55,6 @@ int main (int argc, char **argv)
 
    if (!(pid = fork())) {
 
-
-
       for (i=0; i<loop; i++) {
          sbuf.sem_op = -1;
          semop(semId, &sbuf, 1);
@@ -58,15 +63,13 @@ int main (int argc, char **argv)
          shmPtr[0] = temp;
          sbuf.sem_op = 1;
          semop(semId, &sbuf, 1);
-
       }
       if (shmdt (shmPtr) < 0) {
          perror ("just can't let go\n");
          exit (1);
       }
       exit(0);
-   }
-   else {
+   } else {
          for (i=0; i<loop; i++) {
             sbuf.sem_op = -1;
             semop(semId, &sbuf, 1);
@@ -74,7 +77,6 @@ int main (int argc, char **argv)
             temp = shmPtr[0];
             shmPtr[0] = shmPtr[1];
             shmPtr[1] = temp;
-
             sbuf.sem_op = 1;
             semop(semId, &sbuf, 1);
          }
