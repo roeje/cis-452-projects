@@ -29,7 +29,7 @@ int main (int argc, char **argv)
    // int sem_op_result;
 
    semId = semget(IPC_PRIVATE, 1, 00600);
-   if (semId == -1) {
+   if (semId < 0) {
       printf("Error initilizing semaphore\n");
       exit(0);
    }
@@ -70,21 +70,22 @@ int main (int argc, char **argv)
       }
       exit(0);
    } else {
-         for (i=0; i<loop; i++) {
-            sbuf.sem_op = -1;
-            semop(semId, &sbuf, 1);
-            // swap the contents of shmPtr[1] and shmPtr[0]
-            temp = shmPtr[0];
-            shmPtr[0] = shmPtr[1];
-            shmPtr[1] = temp;
-            sbuf.sem_op = 1;
-            semop(semId, &sbuf, 1);
-         }
+      for (i=0; i<loop; i++) {
+         sbuf.sem_op = -1;
+         semop(semId, &sbuf, 1);
+         // swap the contents of shmPtr[1] and shmPtr[0]
+         temp = shmPtr[0];
+         shmPtr[0] = shmPtr[1];
+         shmPtr[1] = temp;
+         sbuf.sem_op = 1;
+         semop(semId, &sbuf, 1);
+      }
    }
 
    wait (&status);
 
    semctl(semId, 0, IPC_RMID);
+   
    printf ("values: %li\t%li\n", shmPtr[0], shmPtr[1]);
 
    if (shmdt (shmPtr) < 0) {
