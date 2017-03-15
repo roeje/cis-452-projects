@@ -21,6 +21,7 @@ int main (int argc, char **argv)
    int sem_op_result;
 
    semId = semget(IPC_PRIVATE, 1, 00600);
+   prinf("Semid is: \n");
    if (semId == -1) {
       printf("Error initilizing semaphore\n");
       exit(0);
