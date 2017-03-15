@@ -25,12 +25,10 @@ int main()
    double duration = 0;
    int i = 0;
 
-
-	printf("TEST MF...\n");
-
+   HANDLE main_process_handle = NULL;
+   DWORD main_process_priority;
 
    QueryPerformanceFrequency((LARGE_INTEGER *) &perf_freq);
-
 
    if (perf_freq != 0) {
       printf("High-Resolution Counter Frequency: %I64d tick/sec\n", perf_freq);
@@ -72,6 +70,9 @@ int main()
 
    printf("Duration of call to HR-counter: %.10f msec\n", duration);
 
+   /*Extra Credit Segment: Process Priority*/
+
+   main_process_handle = GetCurrentProcess();
 
 	return 0;
 }
