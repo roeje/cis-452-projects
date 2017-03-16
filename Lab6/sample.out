@@ -1,0 +1,39 @@
+roeje-> gcc -Wall sample1.c 
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 100000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 1000000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 1000000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 1000000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 1000000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+roeje-> ./a.out 10000000
+values: 0	1
+[~/Documents/452/cis-452-projects/Lab6]
+
