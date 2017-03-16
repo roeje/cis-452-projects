@@ -13,6 +13,8 @@
 /**
  * CIS 452 - Lab 6: Controlled Processe Synchronization
  *
+ * Implemention of semaphore protection within a shared memory application 
+ *
  * @author  Jesse Roe
  * @author  Michael Kolarik
  * @version 02/18/2017
