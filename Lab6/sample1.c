@@ -27,8 +27,9 @@ int main (int argc, char **argv)
    long int i, loop, temp, *shmPtr;
    int shmId;
    pid_t pid;
-   int semId;   
+   int semId;
    int sem_ctl_result;
+
 
    // Create and get semaphore id
    if ((semId = semget(IPC_PRIVATE, 1, 00600)) < 0) {

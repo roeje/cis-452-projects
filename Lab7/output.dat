@@ -1,0 +1,9 @@
+C:\Users\Jesse\Documents\~Programming\cis-452-projects\Lab7>a.exe
+High-Resolution Counter Frequency: 2338345 tick/sec
+High-Res Counter Period: 0.0004276529 msec/tick
+Ticks for 1 mil loop: 4852 ticks
+Duration of 1 mil loop: 2.0749718284 msec
+Ticks for call to HR-counter: 0 ticks
+Duration of call to HR-counter: 0.0000000000 msec
+
+C:\Users\Jesse\Documents\~Programming\cis-452-projects\Lab7>
