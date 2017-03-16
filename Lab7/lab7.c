@@ -17,6 +17,8 @@
 
 int main()
 {
+
+   /*Various variables to store HR counter data*/
    __int64 perf_freq = 0;
    __int64 perf_count_start = 0;
    __int64 perf_count_end = 0;
@@ -25,9 +27,10 @@ int main()
    double duration = 0;
    int i = 0;
 
-   HANDLE main_process_handle = NULL;
-   DWORD main_process_priority;
+   // HANDLE main_process_handle = NULL;
+   // DWORD main_process_priority;
 
+   /*Get HR counter frequency*/
    QueryPerformanceFrequency((LARGE_INTEGER *) &perf_freq);
 
    if (perf_freq != 0) {
@@ -72,7 +75,7 @@ int main()
 
    /*Extra Credit Segment: Process Priority*/
 
-   main_process_handle = GetCurrentProcess();
+   // main_process_handle = GetCurrentProcess();
 
 	return 0;
 }
