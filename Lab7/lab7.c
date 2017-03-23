@@ -18,6 +18,7 @@
 int main()
 {
 
+
    /*Variables to Store Perf-ormance data*/
    __int64 perf_freq = 0;
    __int64 perf_count_start = 0;
@@ -27,6 +28,11 @@ int main()
    double duration = 0;
    int i = 0;
 
+
+   // HANDLE main_process_handle = NULL;
+   // DWORD main_process_priority;
+
+   /*Get HR counter frequency*/
    QueryPerformanceFrequency((LARGE_INTEGER *) &perf_freq);
 
    if (perf_freq != 0) {
@@ -68,6 +74,9 @@ int main()
 
    printf("Duration of call to HR-counter: %.10f msec\n", duration);
 
+   /*Extra Credit Segment: Process Priority*/
 
-	return 0;
+   // main_process_handle = GetCurrentProcess();
+
+   return 0;
 }

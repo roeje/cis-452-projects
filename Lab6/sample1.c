@@ -13,6 +13,8 @@
 /**
  * CIS 452 - Lab 6: Controlled Processe Synchronization
  *
+ * Implemention of semaphore protection within a shared memory application 
+ *
  * @author  Jesse Roe
  * @author  Michael Kolarik
  * @version 02/18/2017
@@ -25,8 +27,9 @@ int main (int argc, char **argv)
    long int i, loop, temp, *shmPtr;
    int shmId;
    pid_t pid;
-   int semId;   
+   int semId;
    int sem_ctl_result;
+
 
    // Create and get semaphore id
    if ((semId = semget(IPC_PRIVATE, 1, 00600)) < 0) {
