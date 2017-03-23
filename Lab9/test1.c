@@ -1,4 +1,4 @@
-#include <stdio.h>
+		#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -7,14 +7,17 @@
 
 void my_function(int y);
 
-int glb;
-int glb_init = 1000;
+// Global vars for data and text segments
+static int glb;
+static int glb_init = 1000;
+static int tmp1 = 10;
 
 int main()
 {
 
     printf("Global Non-Init: %p\n", &glb);
     printf("Global Init: %p\n", &glb_init);
+    printf("Static int: %p\n", &tmp1);
     int x;
     printf("Location of x: %p\n", &x);
     int i = 0;
