@@ -18,7 +18,8 @@
 int main()
 {
 
-   /*Various variables to store HR counter data*/
+
+   /*Variables to Store Perf-ormance data*/
    __int64 perf_freq = 0;
    __int64 perf_count_start = 0;
    __int64 perf_count_end = 0;
@@ -26,6 +27,7 @@ int main()
    double perf_period = 0;
    double duration = 0;
    int i = 0;
+
 
    // HANDLE main_process_handle = NULL;
    // DWORD main_process_priority;
@@ -57,7 +59,6 @@ int main()
    duration = perf_period * perf_count_diff;
 
    printf("Duration of 1 mil loop: %.10f msec\n", duration);
-
 
    /*Get HR counts before and after call to HR-counter*/
    QueryPerformanceCounter((LARGE_INTEGER *) &perf_count_start);
