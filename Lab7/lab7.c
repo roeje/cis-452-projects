@@ -17,6 +17,8 @@
 
 int main()
 {
+
+   /*Variables to Store Perf-ormance data*/
    __int64 perf_freq = 0;
    __int64 perf_count_start = 0;
    __int64 perf_count_end = 0;
@@ -25,12 +27,7 @@ int main()
    double duration = 0;
    int i = 0;
 
-
-	printf("TEST MF...\n");
-
-
    QueryPerformanceFrequency((LARGE_INTEGER *) &perf_freq);
-
 
    if (perf_freq != 0) {
       printf("High-Resolution Counter Frequency: %I64d tick/sec\n", perf_freq);
@@ -56,7 +53,6 @@ int main()
    duration = perf_period * perf_count_diff;
 
    printf("Duration of 1 mil loop: %.10f msec\n", duration);
-
 
    /*Get HR counts before and after call to HR-counter*/
    QueryPerformanceCounter((LARGE_INTEGER *) &perf_count_start);
