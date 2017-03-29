@@ -1,0 +1,22 @@
+roeje-> pmap 11134
+11134:   ./a.out
+0000000000400000      4K r-x-- a.out
+0000000000600000      4K r---- a.out
+0000000000601000      4K rw--- a.out
+0000000002524000    132K rw---   [ anon ]
+00007f044e407000   1752K r-x-- libc-2.17.so
+00007f044e5bd000   2048K ----- libc-2.17.so
+00007f044e7bd000     16K r---- libc-2.17.so
+00007f044e7c1000      8K rw--- libc-2.17.so
+00007f044e7c3000     20K rw---   [ anon ]
+00007f044e7c8000    128K r-x-- ld-2.17.so
+00007f044e9c3000     12K rw---   [ anon ]
+00007f044e9e5000      8K rw---   [ anon ]
+00007f044e9e7000      4K r---- ld-2.17.so
+00007f044e9e8000      4K rw--- ld-2.17.so
+00007f044e9e9000      4K rw---   [ anon ]
+00007fffc5ada000    132K rw---   [ stack ]
+00007fffc5b54000      8K r-x--   [ anon ]
+ffffffffff600000      4K r-x--   [ anon ]
+ total             4292K
+
