@@ -1,0 +1,30 @@
+roeje-> pmap 30699
+30699:   ./a.out
+0000000000400000      4K r-x-- a.out
+0000000000600000      4K r---- a.out
+0000000000601000      4K rw--- a.out
+0000000001251000    132K rw---   [ anon ]
+00007fa8ba420000   1752K r-x-- libc-2.17.so
+00007fa8ba5d6000   2048K ----- libc-2.17.so
+00007fa8ba7d6000     16K r---- libc-2.17.so
+00007fa8ba7da000      8K rw--- libc-2.17.so
+00007fa8ba7dc000     20K rw---   [ anon ]
+00007fa8ba7e1000    128K r-x-- ld-2.17.so
+00007fa8ba9dc000     12K rw---   [ anon ]
+00007fa8ba9fe000      8K rw---   [ anon ]
+00007fa8baa00000      4K r---- ld-2.17.so
+00007fa8baa01000      4K rw--- ld-2.17.so
+00007fa8baa02000      4K rw---   [ anon ]
+00007fffb9a96000    132K rw---   [ stack ]
+00007fffb9b7d000      8K r-x--   [ anon ]
+ffffffffff600000      4K r-x--   [ anon ]
+ total             4292K
+
+Global Non-Init: 0x60104c
+Global Init: 0x601044
+Location of x: 0x7fffb9ab57fc
+Location of i: 0x7fffb9ab57f8
+Location of new_x: 0x7fffb9ab57dc
+Location of data: 0x7fffb9ab57d0
+Location of data: 0x1251010
+Function: 0x40064a

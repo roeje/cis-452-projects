@@ -1,0 +1,11 @@
+roeje-> ./a.out 
+Global Non-Init: 0x601050
+Global Init: 0x601044
+Static int: 0x601048
+Location of x: 0x7ffc487d76cc
+Location of i: 0x7ffc487d76c8
+Location of new_x: 0x7ffc487d76ac
+Location of data: 0x7ffc487d76a0
+Location of data: 0x82d010
+Function: 0x40065e
+

@@ -16,14 +16,16 @@ int main()
        printf ("Please input your eos username: ");
        scanf ("%s", data1);
        if (!strcmp (data1, "quit")) {
+          // free data1 before we breakout of look and exit
           free(data1);
           break;
        }
        data2 = malloc (SIZE);
        for (i=0; i<SIZE; i++)
           data2[i] = data1[i];
-       free (data1);      
+       free (data1);
        printf ("data2 :%s:\n", data2);
+       // free data2 after it is displayed to the user
        free(data2);
     } while (1);
     muntrace();
