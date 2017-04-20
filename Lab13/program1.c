@@ -7,8 +7,7 @@
 #include <errno.h>
 #include <pwd.h>
 #include <grp.h>
-
-
+#include <unistd.h>
 
 int main(int argc, char *argv[]) {
 
@@ -42,13 +41,13 @@ int main(int argc, char *argv[]) {
       command = "None";
    }
 
-   dirPtr = opendir (path_file);
+   // dirPtr = opendir (path_file);
 
    /* Check for vaild path */
-   if (dirPtr == NULL) {
-      printf("ERROR: directory not found or permission denied...\n");
-      exit(1);
-   }
+   // if (dirPtr == NULL) {
+   //    printf("ERROR: directory not found or permission denied...\n");
+   //    exit(1);
+   // }
 
    if (strcmp(command, "-s") == 0) {
       if (symlink(path_file, path_link) < 0) {
