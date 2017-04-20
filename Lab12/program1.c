@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <pwd.h>
 #include <grp.h>
+#include <time.h>
 
 /**
  * CIS 452 - Lab 12: ls - Directory Listing Implementation in C
@@ -45,6 +46,10 @@ int main(int argc, char *argv[]) {
       // printf("Commands: %s\n", commands);
       // printf("Command %s\n", command);
       // printf("Path: %s\n", pathname);
+   } else if (argc == 2) {
+     pathname = ".";
+     commands = argv[argc - 1];
+     command = &commands[1];
    } else if (argc == 1) {
 
       /* Store command line arguments for default with no commands or path */
@@ -78,12 +83,12 @@ int main(int argc, char *argv[]) {
       if (strcmp(command, "l") == 0) {
          // char * file_type = (int)((statBuf.st_mode)&77000) + '0';
          printf ("%-8.3o %-8d %-8d %-8s %-8s %-8s\n", (statBuf.st_mode)&0777,
-                                                         (int)statBuf.st_size,
-                                                         (int)statBuf.st_nlink,
-                                                         getpwuid(statBuf.st_uid)->pw_name,
-                                                         getgrgid(statBuf.st_gid)->gr_name,
-                                                         entryPtr->d_name);
-         file_count++;
+                                             (int)statBuf.st_size,
+                                             (int)statBuf.st_nlink,
+                                             getpwuid(statBuf.st_uid)->pw_name,
+                                             getgrgid(statBuf.st_gid)->gr_name,
+                                             entryPtr->d_name);
+       file_count++;
       }
 
       /* Check for 'i' command */
@@ -94,7 +99,7 @@ int main(int argc, char *argv[]) {
          }
          file_count++;
       } else {
-         printf ("%s    ls", entryPtr->d_name);
+         printf ("%s    ", entryPtr->d_name);
          if ((file_count%8) == 0 && file_count != 0) {
             printf("\n");
          }
