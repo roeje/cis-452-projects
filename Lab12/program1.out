@@ -1,0 +1,24 @@
+roeje-> gcc -Wall program1.c
+[~/Documents/452/cis-452-projects/Lab12]
+roeje-> ./a.out -i
+124454757 program1.out 124454702 program1.c 124454718 sample1.c  124454721 sample2.c
+124454719 sample1c.c 124454366 a.out      124454676 ..
+124454717 .
+Total: 8
+[~/Documents/452/cis-452-projects/Lab12]
+roeje-> ./a.out -i .
+124454757 program1.out 124454702 program1.c 124454718 sample1.c  124454721 sample2.c
+124454719 sample1c.c 124454366 a.out      124454676 ..
+124454717 .
+Total: 8
+[~/Documents/452/cis-452-projects/Lab12]
+roeje-> ./a.out -i ~/.ssh
+123929895 known_hosts 123930870 authorized_keys 123929804 ..         123929894 .
+123931220 451lab9    123931221 451lab9.pub
+Total: 6
+[~/Documents/452/cis-452-projects/Lab12]
+roeje-> ls -i
+124454366 a.out  124454702 program1.c  124454757 program1.out  124454718 sample1.c  124454719 sample1c.c  124454721 sample2.c
+[~/Documents/452/cis-452-projects/Lab12]
+roeje-> ls -i ~/.ssh
+123931220 451lab9  123931221 451lab9.pub  123930870 authorized_keys  123929895 known_hosts
